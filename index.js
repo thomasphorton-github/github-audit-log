@@ -1,15 +1,17 @@
 import { Octokit } from "@octokit/core";
-import { keys } from "./secrets.js";
+import { config } from "./config.js";
 
 const octokit = new Octokit({
-  auth: keys.github_pat
+  auth: config.github_pat
 });
 
+let phrase = 'action:git.push';
+
 let logs = await octokit.request('GET /orgs/{org}/audit-log', {
-    org: 'customer-success-architects',
+    org: config.org,
     include: 'git',
     per_page: 100,
-    phrase: 'action:git.push',
+    phrase,
     headers: {
       'X-GitHub-Api-Version': '2022-11-28'
     }
@@ -18,13 +20,4 @@ let logs = await octokit.request('GET /orgs/{org}/audit-log', {
 let events = logs.data;
 
 console.log(events[0]);
-
-console.log(events.length);
-
-
-
-// let pushes = logs.data.filter(log => log.action === 'git.push');
-
-// console.log(pushes);
-
-// export { orgLogs };
+console.log(`${events.length} events found matching "${phrase}".`);
