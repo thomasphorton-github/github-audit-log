@@ -6,10 +6,10 @@ To access audit logs through the REST API, **your organization must be registere
 
 1. Create a fine-grained Personal Access Token (PAT) with the organization-level permission `Administration: Read-only`.
 
-2. Copy `secrets.js.example` to create a config file, and update it to include your PAT.
+2. Copy `config.js.example` to create a config file, and update it to include your PAT.
 
 ```
-cp ./secrets.js.example ./secrets.js
+cp ./config.js.example ./config.js
 ```
 
 3. Install JS dependencies
